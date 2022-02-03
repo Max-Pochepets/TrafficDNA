@@ -1,5 +1,6 @@
 package traffic.dna.testassignment.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserInfo(Long userId) {
         return UserStorage.userStorage.stream()
                 .filter(u -> Objects.equals(u.getId(), userId))
+                .sorted(Comparator.comparing(User::getResult))
                 .limit(20)
                 .collect(Collectors.toList());
     }
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getInfoByLevelId(Long levelId) {
         return UserStorage.userStorage.stream()
                 .filter(u -> Objects.equals(u.getLevelId(), levelId))
+                .sorted(Comparator.comparing(User::getResult))
                 .limit(20)
                 .collect(Collectors.toList());
     }
